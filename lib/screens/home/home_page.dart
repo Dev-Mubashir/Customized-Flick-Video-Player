@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/services.dart';
-import 'package:tamashaaa/screens/home/controllers/customprogressbar.dart';
+import 'package:tamashaaa/screens/home/controllers/flick_custom_controls.dart';
 import 'package:tamashaaa/screens/home/multi_manager/flick_multi_manager.dart';
+import 'package:tamashaaa/utils/mock_data.dart';
 import 'package:video_player/video_player.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +21,7 @@ class _MyHomePageState extends State<HomePage> {
     super.initState();
     flickManager = FlickManager(
       videoPlayerController: VideoPlayerController.asset(
-        'assets/videos/graphics.mp4',
+        mockData['items'][0]['trailer_url'],
       ),
     );
   }
@@ -47,11 +48,16 @@ class _MyHomePageState extends State<HomePage> {
         aspectRatio: 16 / 9, // Adjust the aspect ratio as needed
         child: FlickVideoPlayer(
           flickManager: flickManager,
-          flickVideoWithControls: const FlickVideoWithControls(
-            iconThemeData: IconThemeData(color: Colors.black),
-            controls: FlickPortraitControls(),
+          flickVideoWithControls: FlickVideoWithControls(
+            closedCaptionTextStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+            ),
+            // iconThemeData: IconThemeData(color: Colors.black, ze: 12),
+            // controls: FlickPortraitControls(),
+            controls: FlickCustomControls(flickManager: flickManager),
           ),
-          preferredDeviceOrientationFullscreen: [
+          preferredDeviceOrientationFullscreen: const [
             DeviceOrientation.landscapeLeft,
             DeviceOrientation.landscapeRight,
           ],
