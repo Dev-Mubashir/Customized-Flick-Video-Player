@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tamashaaa/screens/home/home_page.dart';
+import 'package:tamashaaa/screens/home/view/home_page.dart';
 import 'package:tamashaaa/screens/splash_screen.dart';
 
 void main() {

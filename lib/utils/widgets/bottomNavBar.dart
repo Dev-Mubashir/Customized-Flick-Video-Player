@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tamashaaa/screens/explore/explore_page.dart';
-import 'package:tamashaaa/screens/home/home_page.dart';
+import 'package:tamashaaa/screens/home/view/home_page.dart';
 import 'package:tamashaaa/screens/livetv/livetv_page.dart';
 import 'package:tamashaaa/screens/more/more_page.dart';
 import 'package:tamashaaa/screens/mylibrary/mylibrary_page.dart';
