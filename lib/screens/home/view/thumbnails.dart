@@ -1,91 +1,110 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:tamashaaa/screens/home/view/specificgenremovies.dart';
+import 'package:tamashaaa/utils/colors.dart';
+// import 'genre_movie_list_page.dart'; // Import the newly created page
+
+Widget buildGenreRow(
+  BuildContext context,
+  String genre,
+  List<dynamic> movies,
+) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Padding(
+        padding: const EdgeInsets.only(left: 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              genre,
+              style: GoogleFonts.openSans(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                // Navigate to full list of movies for this genre
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GenreMovieListPage(
+                      genre: genre,
+                      movies: movies
+                          .where((movie) =>
+                              movie['genres'] != null &&
+                              movie['genres'].isNotEmpty &&
+                              movie['genres'].first == genre)
+                          .toList(),
+                    ),
+                  ),
+                );
+              },
+              child: Text(
+                'View more',
+                style: GoogleFonts.openSans(
+                  fontSize: 12,
+                  fontWeight: FontWeight.normal,
+                  color: Color(kwhitecolor),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      Container(
+        height: 150,
+        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: movies.length > 10 ? 10 : movies.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(4.0),
+                child: Image.network(movies[index]['thumbnail']),
+              ),
+            );
+          },
+        ),
+      ),
+    ],
+  );
+}
 
 class MovieList extends StatelessWidget {
   final List<dynamic> movies;
 
-  const MovieList({required this.movies});
+  MovieList({Key? key, required this.movies}) : super(key: key);
+
+  final genres = [
+    'Horror',
+    'Action',
+    'Comedy',
+    'Drama',
+    'Crime',
+    'Mystery',
+    'Adventure'
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Horror Row
-        buildGenreRow(
-          context,
-          'Horror',
-          movies
-              .where((movie) =>
-                  movie['genres'] != null &&
-                  movie['genres'].isNotEmpty &&
-                  movie['genres'].first == 'Horror')
-              .toList(),
-        ),
-        // Action Row
-        buildGenreRow(
-          context,
-          'Action',
-          movies
-              .where((movie) =>
-                  movie['genres'] != null &&
-                  movie['genres'].isNotEmpty &&
-                  movie['genres'].first == 'Action')
-              .toList(),
-        ),
-        // Comedy Row
-        buildGenreRow(
-          context,
-          'Comedy',
-          movies
-              .where((movie) =>
-                  movie['genres'] != null &&
-                  movie['genres'].isNotEmpty &&
-                  movie['genres'].first == 'Comedy')
-              .toList(),
-        ),
-        // Drama Row
-        buildGenreRow(
-          context,
-          'Drama',
-          movies
-              .where((movie) =>
-                  movie['genres'] != null &&
-                  movie['genres'].isNotEmpty &&
-                  movie['genres'].first == 'Drama')
-              .toList(),
-        ),
-        // Crime Row
-        buildGenreRow(
-          context,
-          'Crime',
-          movies
-              .where((movie) =>
-                  movie['genres'] != null &&
-                  movie['genres'].isNotEmpty &&
-                  movie['genres'].first == 'Crime')
-              .toList(),
-        ),
-        // Mystery Row
-        buildGenreRow(
-          context,
-          'Mystery',
-          movies
-              .where((movie) =>
-                  movie['genres'] != null &&
-                  movie['genres'].isNotEmpty &&
-                  movie['genres'].first == 'Mystery')
-              .toList(),
-        ),
-        // Adventure Row
-        buildGenreRow(
-          context,
-          'Adventure',
-          movies
-              .where((movie) =>
-                  movie['genres'] != null &&
-                  movie['genres'].isNotEmpty &&
-                  movie['genres'].first == 'Adventure')
-              .toList(),
-        ),
+        for (final genre in genres)
+          buildGenreRow(
+            context,
+            genre,
+            movies
+                .where((movie) =>
+                    movie['genres'] != null &&
+                    movie['genres'].isNotEmpty &&
+                    movie['genres'].first == genre)
+                .toList(),
+          ),
       ],
     );
   }

@@ -8,11 +8,10 @@ import 'package:video_player/video_player.dart';
 
 class FlickMultiPlayer extends StatefulWidget {
   const FlickMultiPlayer(
-      {Key? key,
+      {super.key,
       required this.url,
       this.image,
-      required this.flickMultiManager})
-      : super(key: key);
+      required this.flickMultiManager});
 
   final String url;
   final String? image;
@@ -65,10 +64,10 @@ class _FlickMultiPlayerState extends State<FlickMultiPlayer> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     right: 10,
                     top: 10,
-                    child: Container(
+                    child: SizedBox(
                       width: 20,
                       height: 20,
                       child: CircularProgressIndicator(
@@ -91,12 +90,12 @@ class _FlickMultiPlayerState extends State<FlickMultiPlayer> {
               widget.image!,
               fit: BoxFit.fitWidth,
             )),
-            controls: FlickLandscapeControls(),
-            iconThemeData: IconThemeData(
+            controls: const FlickLandscapeControls(),
+            iconThemeData: const IconThemeData(
               size: 40,
               color: Colors.white,
             ),
-            textStyle: TextStyle(fontSize: 16, color: Colors.white),
+            textStyle: const TextStyle(fontSize: 16, color: Colors.white),
           ),
         ),
       ),

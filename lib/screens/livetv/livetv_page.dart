@@ -7,7 +7,7 @@ import 'package:tamashaaa/screens/home/controllers/flick_custom_controls.dart';
 import 'package:video_player/video_player.dart';
 
 class LivetvPage extends StatefulWidget {
-  const LivetvPage({Key? key}) : super(key: key);
+  const LivetvPage({super.key});
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -48,7 +48,7 @@ class _MyHomePageState extends State<LivetvPage> {
         child: FlickVideoPlayer(
           flickManager: flickManager,
           flickVideoWithControls: FlickVideoWithControls(
-            closedCaptionTextStyle: TextStyle(
+            closedCaptionTextStyle: const TextStyle(
               color: Colors.white,
               fontSize: 12,
             ),

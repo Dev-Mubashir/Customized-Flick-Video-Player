@@ -4,13 +4,9 @@ import 'package:tamashaaa/screens/home/view/home_page.dart';
 import 'package:tamashaaa/screens/livetv/livetv_page.dart';
 import 'package:tamashaaa/screens/more/more_page.dart';
 import 'package:tamashaaa/screens/mylibrary/mylibrary_page.dart';
-// import 'package:mmvideo_player1/screens/ShortVideoPlayer/my_logic/reels.dart';
-// import 'package:mmvideo_player1/screens/default_player.dart';
-// import 'package:mmvideo_player1/screens/Feed%20Player/feed_player.dart';
-// import 'package:mmvideo_player1/screens/Landscape%20Player/landscape_player.dart';
 
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({Key? key}) : super(key: key);
+  const BottomNavBar({super.key});
 
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
@@ -20,11 +16,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
 
   final List<Widget> _children = [
-    HomePage(),
-    LivetvPage(),
-    ExplorePage(),
-    MylibraryPage(),
-    MorePage(),
+    const HomePage(),
+    const LivetvPage(),
+    const ExplorePage(),
+    const MylibraryPage(),
+    const MorePage(),
   ];
 
   void onTabTapped(int index) {
@@ -38,14 +34,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.white,
         unselectedItemColor: const Color.fromARGB(255, 143, 143, 143),
+        backgroundColor: Colors.black,
         currentIndex: _currentIndex,
         onTap: onTabTapped,
+        iconSize: 22, // Adjust icon size to maintain consistency
+        selectedFontSize: 9, // Ensure the font size does not change
+        unselectedFontSize: 9, // Ensure the font size does not change
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            backgroundColor: Colors.black,
             label: 'Home',
           ),
           BottomNavigationBarItem(

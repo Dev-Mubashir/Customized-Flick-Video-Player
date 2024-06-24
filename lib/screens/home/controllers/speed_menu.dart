@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 class SpeedMenu extends StatefulWidget {
   final FlickManager flickManager; // Pass the FlickManager instance
   final double iconSize;
-  SpeedMenu({Key? key, required this.flickManager, required this.iconSize})
-      : super(key: key);
+  const SpeedMenu({super.key, required this.flickManager, required this.iconSize});
 
   @override
   State<SpeedMenu> createState() => SpeedMenuState();

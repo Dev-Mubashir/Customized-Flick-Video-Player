@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flick_video_player/flick_video_player.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tamashaaa/screens/home/controllers/speed_menu.dart';
 import 'package:vibration/vibration.dart';
 
 /// Default portrait controls.
 class FlickCustomControls extends StatelessWidget {
   const FlickCustomControls(
-      {Key? key,
+      {super.key,
       this.iconSize = 20,
       this.fontSize = 12,
       this.progressBarSettings,
-      required this.flickManager})
-      : super(key: key);
+      required this.flickManager});
   final FlickManager flickManager;
 
   /// Icon size.
@@ -65,7 +63,7 @@ class FlickCustomControls extends StatelessWidget {
                         FlickPlayToggle(
                           size: 30,
                           color: Colors.black,
-                          padding: EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             color: Colors.white70,
                             borderRadius: BorderRadius.circular(40),
@@ -113,15 +111,15 @@ class FlickCustomControls extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             ListTile(
-                              leading: Icon(Icons.high_quality),
-                              title: Text('Video Resolution'),
+                              leading: const Icon(Icons.high_quality),
+                              title: const Text('Video Resolution'),
                               onTap: () {
                                 // Handle option 1 tap
                               },
                             ),
                             ListTile(
-                              leading: Icon(Icons.speed),
-                              title: Text('Speed'),
+                              leading: const Icon(Icons.speed),
+                              title: const Text('Speed'),
                               onTap: () {
                                 showModalBottomSheet(
                                   context: context,

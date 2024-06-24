@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class ExplorePage extends StatefulWidget {
+  const ExplorePage({super.key});
+
   @override
   _ExplorePage createState() => _ExplorePage();
 }
@@ -10,7 +12,7 @@ class _ExplorePage extends State<ExplorePage> {
   late List<VideoPlayerController?>
       _controllers; // Make the controllers nullable
   var _isLoading = true;
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
   late List<String> _videos;
 
   @override
@@ -21,7 +23,9 @@ class _ExplorePage extends State<ExplorePage> {
 
   @override
   void dispose() {
-    _controllers.forEach((controller) => controller?.dispose());
+    for (var controller in _controllers) {
+      controller?.dispose();
+    }
     super.dispose();
   }
 
@@ -66,7 +70,7 @@ class _ExplorePage extends State<ExplorePage> {
       backgroundColor: Colors.black,
       body: SafeArea(
         child: _isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : PageView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: _videos.length,
