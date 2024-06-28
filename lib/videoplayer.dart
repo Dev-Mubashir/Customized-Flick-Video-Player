@@ -57,7 +57,9 @@ class _MyHomePageState extends State<HomePage> {
                 ),
                 // iconThemeData: IconThemeData(color: Colors.black, ze: 12),
                 // controls: FlickPortraitControls(),
-                controls: FlickCustomControls(flickManager: flickManager),
+                controls: FlickCustomControls(
+                  flickManager: flickManager,
+                ),
               ),
               preferredDeviceOrientationFullscreen: const [
                 DeviceOrientation.landscapeLeft,
