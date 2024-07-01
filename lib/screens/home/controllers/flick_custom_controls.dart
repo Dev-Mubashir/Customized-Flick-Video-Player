@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flick_video_player/flick_video_player.dart';
+import 'package:tamashaaa/screens/home/controllers/fetch_video_resolution.dart';
 import 'package:tamashaaa/screens/home/controllers/speed_menu.dart';
 import 'package:vibration/vibration.dart';
+import 'package:http/http.dart' as http;
+import 'package:video_player/video_player.dart';
 
-/// Default portrait controls.
 class FlickCustomControls extends StatelessWidget {
-  const FlickCustomControls(
+  FlickCustomControls(
       {super.key,
       this.iconSize = 20,
       this.fontSize = 12,
       this.progressBarSettings,
       required this.flickManager});
-  final FlickManager flickManager;
+  FlickManager flickManager;
 
-  /// Icon size.
-  ///
-  /// This size is used for all the player icons.
   final double iconSize;
-
-  /// Font size.
-  ///
-  /// This size is used for all the text.
   final double fontSize;
-
-  /// [FlickProgressBarSettings] settings.
   final FlickProgressBarSettings? progressBarSettings;
 
   @override
@@ -90,7 +83,6 @@ class FlickCustomControls extends StatelessWidget {
             ),
           ),
         ),
-        //This row at the top provide the funcionality of speedcontrol and captions
         Positioned(
           top: 0,
           right: 0,
@@ -113,8 +105,42 @@ class FlickCustomControls extends StatelessWidget {
                             ListTile(
                               leading: const Icon(Icons.high_quality),
                               title: const Text('Video Resolution'),
-                              onTap: () {
-                                // Handle option 1 tap
+                              onTap: () async {
+                                final resolutions =
+                                    await fetchVideoResolutions();
+                                Navigator.pop(context); // Close the first modal
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: resolutions
+                                            .map((res) => ListTile(
+                                                  title:
+                                                      Text(res['resolution']!),
+                                                  onTap: () {
+                                                    flickManager
+                                                        .flickControlManager
+                                                        ?.pause();
+                                                    flickManager = FlickManager(
+                                                      videoPlayerController:
+                                                          VideoPlayerController
+                                                              .network(
+                                                                  res['url']!),
+                                                    );
+                                                    flickManager
+                                                        .flickControlManager
+                                                        ?.play();
+                                                    Navigator.pop(
+                                                        context); // Close the resolution modal
+                                                  },
+                                                ))
+                                            .toList(),
+                                      ),
+                                    );
+                                  },
+                                );
                               },
                             ),
                             ListTile(
@@ -134,7 +160,6 @@ class FlickCustomControls extends StatelessWidget {
                                 );
                               },
                             ),
-                            // Add more options here
                           ],
                         ),
                       );
@@ -211,13 +236,10 @@ class FlickCustomControls extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: GestureDetector(
               onLongPressStart: (_) async {
-                // Set speed to 2.0x
                 flickManager.flickControlManager?.setPlaybackSpeed(2.0);
-                // Perform vibration
-                await Vibration.vibrate(duration: 50); // Short vibration
+                await Vibration.vibrate(duration: 50);
               },
               onLongPressEnd: (_) {
-                // Reset speed to 1.0x
                 flickManager.flickControlManager?.setPlaybackSpeed(1.0);
               },
             ),
